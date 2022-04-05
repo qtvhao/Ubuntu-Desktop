@@ -1,0 +1,9 @@
+version: 0.2
+phases:
+  build:
+    commands:
+      # Use AWS SAM to package the application by using AWS CloudFormation
+      - aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 797568759896.dkr.ecr.ap-southeast-1.amazonaws.com
+      - docker build -t ubuntu-desktop .
+      - docker tag ubuntu-desktop:latest 797568759896.dkr.ecr.ap-southeast-1.amazonaws.com/ubuntu-desktop:latest
+      - docker push 797568759896.dkr.ecr.ap-southeast-1.amazonaws.com/ubuntu-desktop:latest
